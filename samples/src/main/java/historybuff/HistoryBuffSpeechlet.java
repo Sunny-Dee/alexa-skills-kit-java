@@ -341,7 +341,8 @@ public class HistoryBuffSpeechlet implements Speechlet {
      */
     private SpeechletResponse handleNextEventRequest(Session session) {
         String cardTitle = "More events on this day in history";
-        ArrayList<String> events = (ArrayList<String>) session.getAttribute(SESSION_TEXT);
+        @SuppressWarnings("unchecked")
+		ArrayList<String> events = (ArrayList<String>) session.getAttribute(SESSION_TEXT);
         int index = (Integer) session.getAttribute(SESSION_INDEX);
         String speechOutput = "";
         String cardOutput = "";

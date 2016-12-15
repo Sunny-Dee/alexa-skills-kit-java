@@ -88,6 +88,7 @@ public final class Launcher {
         context.addServlet(new ServletHolder(createServlet(new SessionSpeechlet())), "/session");
         server.start();
         server.join();
+        serverConnector.close();
     }
 
     private static SpeechletServlet createServlet(final Speechlet speechlet) {

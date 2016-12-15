@@ -42,7 +42,6 @@ import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SimpleCard;
-import com.amazon.speech.ui.SsmlOutputSpeech;
 
 /**
  * This sample shows how to create a Lambda function for handling Alexa Skill requests that:
