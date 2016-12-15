@@ -101,7 +101,7 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 		String joke = "";
 		try {
 			JSONObject response = new JSONObject(text);
-			JSONObject value = new JSONObject(response.getJSONObject("value"));
+			JSONObject value = response.getJSONObject("value");
 			joke = value.getString("joke");
 		} catch (JSONException e){
 			joke = "No jokes for you, just a kick on the valuables.";
