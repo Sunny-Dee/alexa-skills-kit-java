@@ -132,6 +132,7 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 		sb.append(opentag);
 		sb.append(repromptText);
 		sb.append(closetag);
+		repromptText = sb.toString();
 		
 		SsmlOutputSpeech initialSpeech = new SsmlOutputSpeech();
 		initialSpeech.setSsml(speechText);
