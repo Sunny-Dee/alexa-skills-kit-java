@@ -66,8 +66,7 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 	
 	private SpeechletResponse getJoke() {
 		String joke = parseJson(makeAPIRequest());
-		String reprompt ="Don't be shy ask for another joke";
-		return generateAskResponse(joke, reprompt);
+		return generateResponse(joke);
 	}
 	
 	private String makeAPIRequest(){
@@ -144,6 +143,24 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 		reprompt.setOutputSpeech(repromptSpeech);
 		
 		return SpeechletResponse.newAskResponse(initialSpeech, reprompt);
+	}
+	
+	
+	private SpeechletResponse generateResponse(String speechText){
+		String opentag = "<speak>";
+		String closetag = "</speak>";
+		
+		//add Ssml tags
+		StringBuilder sb = new StringBuilder();
+		sb.append(opentag);
+		sb.append(speechText);
+		sb.append(closetag);
+		speechText = sb.toString();
+		
+		SsmlOutputSpeech initialSpeech = new SsmlOutputSpeech();
+		initialSpeech.setSsml(speechText);
+		
+		return SpeechletResponse.newTellResponse(initialSpeech);
 	}
 
 }
