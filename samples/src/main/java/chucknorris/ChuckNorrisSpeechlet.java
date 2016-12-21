@@ -20,6 +20,7 @@ import com.amazon.speech.speechlet.SessionStartedRequest;
 import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazon.speech.speechlet.SpeechletResponse;
+import com.amazon.speech.ui.PlainTextOutputSpeech;
 import com.amazon.speech.ui.Reprompt;
 import com.amazon.speech.ui.SsmlOutputSpeech;
 import com.amazonaws.util.json.JSONException;
@@ -53,7 +54,12 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 		} else if ("AMAZON.HelpIntent".equals(intentName)) {
 			String help = "I give you an ass kicking joke if you say... ask Chuck Norris to give me a joke";
 			return generateAskResponse(help, help);
-		} else {
+		} else if ("AMAZON.StopIntent".equals(intentName)) {
+            PlainTextOutputSpeech outputSpeech = new PlainTextOutputSpeech();
+            outputSpeech.setText("Goodbye");
+
+            return SpeechletResponse.newTellResponse(outputSpeech);
+        } else {
 			throw new SpeechletException("Invalid intent");
 		}
 	}
@@ -111,8 +117,8 @@ public class ChuckNorrisSpeechlet implements Speechlet {
 	}
 	
 	private SpeechletResponse getWelcomeResponse() {
-		String text = "This is the Chuck Norris app. Welcome."; //TODO
-		String reprompt = "You can ask for a joke if you say... Hit me.";	
+		String text = "This is the Unofficial Chuck Norris app. Welcome. Say, ask Chuck Norris to tell me a joke."; //TODO
+		String reprompt = "You can ask for a joke if you say, Hit me.";	
 				
 		return generateAskResponse(text, reprompt);
 	}
