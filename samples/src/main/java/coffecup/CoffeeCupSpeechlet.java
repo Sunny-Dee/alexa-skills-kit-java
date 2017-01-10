@@ -3,7 +3,6 @@ package coffecup;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.amazon.speech.json.SpeechletRequestEnvelope;
 import com.amazon.speech.slu.Intent;
 import com.amazon.speech.speechlet.IntentRequest;
 import com.amazon.speech.speechlet.LaunchRequest;
@@ -15,6 +14,12 @@ import com.amazon.speech.speechlet.Speechlet;
 import com.amazon.speech.speechlet.SpeechletException;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
+/**
+ * Compile with maven using command: 
+ * mvn clean compile assembly:single -DdescriptorId=jar-with-dependencies package
+ * @author delianaescobari
+ *
+ */
 public class CoffeeCupSpeechlet implements Speechlet {
 	private static final Logger log = LoggerFactory.getLogger(CoffeeCupSpeechlet.class);
 	
