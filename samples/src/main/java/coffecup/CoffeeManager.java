@@ -18,7 +18,7 @@ import dynamo.*;
 public class CoffeeManager {
 	private static final String SLOT_PLAYER_NAME = "PlayerName";
 	private static final String SLOT_CUP_NUMBER = "NumberOfCups";
-	private static final int MAX_PLAYERS_FOR_SPEECH = 10; //TODO maybe we don't need this. 
+	private static final int MAX_PLAYERS_FOR_SPEECH = 10; //TODO maybe I don't need this. 
 	
 	private final CoffeeCupDao coffeeCupDao;
 	
@@ -49,7 +49,7 @@ public class CoffeeManager {
 		CoffeeCupCounter counter = coffeeCupDao.getCoffeeCounter(session);
 		
 		if(counter == null){
-			return getAskSpeecletResponse("New round started. Who's your first player?", 
+			return getAskSpeechletResponse("New round started. Who's your first player?", 
 					"Please tell me who\'s your first player?");
 		}
 		
@@ -57,7 +57,7 @@ public class CoffeeManager {
 		coffeeCupDao.saveCoffeeCupCounter(counter);
 		
 		String speechText = "New round started with " + counter.getNumberOfPlayers() + " existing player"
-				+ (counter.getNumberOfPlayers() != 1 ? "" : "s") + ".";
+				+ (counter.getNumberOfPlayers() != 1 ? "" : "s") + ". ";
 		
 		if(skillContext.needsMoreHelp()){
 			String repromptText = "You can add the coffee count for an existing player, "
@@ -70,10 +70,6 @@ public class CoffeeManager {
 		}
 	}
 	
-	private SpeechletResponse getAskSpeecletResponse(String string, String string2) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	public SpeechletResponse getAddPlayerIntentResponse(Intent intent, Session session, 
 			SkillContext skillContext){
@@ -125,7 +121,9 @@ public class CoffeeManager {
 		
 		int cups = 0; 
 		try {
-			cups = Integer.parseInt(intent.getSlot(SLOT_CUP_NUMBER).getValue());
+			Integer temp = Integer.parseInt(intent.getSlot(SLOT_CUP_NUMBER).getValue());
+			cups = temp == null? 1 : temp;
+			
 		} catch (NumberFormatException e) {
 			String speechText = "Sorry, I did not hear that. How many cups you want to add?";
 			return getAskSpeechletResponse(speechText, speechText);
@@ -151,11 +149,11 @@ public class CoffeeManager {
 		
 		coffeeCupDao.saveCoffeeCupCounter(counter);
 		
-		String speechText = playerName + " had " + cups + " cup" 
-		+ (cups > 1 ? "s" : "") + " of coffee so far.";
+		String speechText = cups + " cup" 
+		+ (cups > 1 ? "s" : "") + " of coffee added to " + playerName + ". ";
 		if(counter.getNumberOfPlayers() > MAX_PLAYERS_FOR_SPEECH){
 			speechText += playerName + " had " + counter.getCountForPlayer(playerName)
-			+ " in total.";
+			+ " so far. ";
 		} else {
 			speechText += getAllScoresAsSpeechText(counter.getAllCounts());
 		}

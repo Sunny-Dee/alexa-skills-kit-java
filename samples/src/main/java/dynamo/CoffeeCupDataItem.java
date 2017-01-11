@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * Model representing an item of the CoffeeCupDataItem table in DynamoDB for CoffeCup Counter skill.
  */
 
-@DynamoDBTable(tableName = "CoffeCupUserData")
+@DynamoDBTable(tableName = "CoffeeCupUserData")
 public class CoffeeCupDataItem {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	private String playerId; //TODO customerID instead??
